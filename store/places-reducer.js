@@ -13,7 +13,8 @@ export default (state = initialState, action) =>{
         case ADD_PLACE:
             const newPlace = new Place(
                 new Date().toString(),
-                action.payload.title
+                action.payload.title,
+                action.payload.image
             )
             const updated_places = state.places.concat(newPlace)
             return {
