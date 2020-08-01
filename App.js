@@ -1,11 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import PlacesNavigator from './navigation/PlacesNavigator'
+import {createStore, combineReducers, applyMiddleware, compose} from 'redux'
+import {Provider} from 'react-redux'
+import ReduxThunk from 'redux-thunk'
+import PlacesReducer from './store/places-reducer'
+
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const rootReducer = combineReducers({
+  places:PlacesReducer
+})
+
+const store = createStore(
+  rootReducer,
+  composeEnhancer(applyMiddleware(ReduxThunk)),
+);
+
 
 export default function App() {
   return (
-    <PlacesNavigator />
+    <Provider store={store}>
+      <PlacesNavigator />
+    </Provider>
+    
   );
 }
 
