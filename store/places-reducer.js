@@ -20,6 +20,10 @@ export default (state = initialState, action) =>{
                 action.payload.id,
                 action.payload.title,
                 action.payload.image,
+                action.payload.address,
+                action.payload.coords.lat,
+                action.payload.coords.lng,
+
             )
             const updated_places = state.places.concat(newPlace)
             return {

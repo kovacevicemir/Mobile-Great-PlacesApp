@@ -1,6 +1,6 @@
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -16,6 +16,17 @@ import MapPreview from "./MapPreview";
 const LocationPicker = (props) => {
   const [pickedLocation, setPickedLocation] = useState();
   const [isFetching, setIsFetching] = useState(false);
+
+  const mapPickedLocation = props.navigation.getParam('pickedLocation')
+
+  
+
+  useEffect(()=>{
+    if(mapPickedLocation){
+        setPickedLocation(mapPickedLocation)
+    }
+    props.onLocationPicked(mapPickedLocation)
+  },[mapPickedLocation])
   
   const verifyPermissions = async () => {
     const result = await Permissions.askAsync(Permissions.LOCATION);
@@ -48,6 +59,10 @@ const LocationPicker = (props) => {
         lat: location.coords.latitude,
         lng: location.coords.longitude,
       });
+      props.onLocationPicked({
+        lat: location.coords.latitude,
+        lng: location.coords.longitude,
+      })
     } catch (err) {
       Alert.alert(
         "Could not fetch location1",

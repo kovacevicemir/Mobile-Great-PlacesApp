@@ -9,7 +9,7 @@ const ImgPicker = (props) => {
     const [pickedImage, setPickedImage] = useState()
 
     const verifyPermissions = async () =>{
-        const result = await Permissions.askAsync(Permissions.CAMERA)
+        const result = await Permissions.askAsync(Permissions.CAMERA_ROLL, Permissions.CAMERA)
         if(result.status !== 'granted'){
             Alert.alert('Insufficient permissions!', 'You need to allow camera in this app.', [{text:'OK'}])
             return false;
@@ -25,8 +25,8 @@ const ImgPicker = (props) => {
         }
 
         const image = await ImagePicker.launchCameraAsync({
-            allowsEditing:true,
-            aspect:[16,9],
+            allowsEditing: true,
+            aspect:[4, 3],
             quality: 0.5
         });
 
