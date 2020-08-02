@@ -5,6 +5,14 @@ import {createStore, combineReducers, applyMiddleware, compose} from 'redux'
 import {Provider} from 'react-redux'
 import ReduxThunk from 'redux-thunk'
 import PlacesReducer from './store/places-reducer'
+import { init } from './helpers/db'
+
+init().then(()=>{
+  console.log('initialized database')
+}).catch(err=>{
+  console.log('initializing db failed.')
+  console.log(err)
+});
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
