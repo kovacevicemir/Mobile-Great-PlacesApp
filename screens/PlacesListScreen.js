@@ -29,6 +29,7 @@ const PlacesListScreen = (props) => {
               }}
             title={itemData.item.title}
             address={itemData.item.address}
+            keyExtractor={item => item.id.toString()}
           />
         )}
       />
